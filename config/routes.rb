@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'querylogger/index'
+  match 'channel-icon/findmissing', to: 'querylogger#findmissing', via: [:get, :post ]
   match 'channel-icon/lookup', to: 'querylogger#lookup', via: [:get, :post ]
   match 'channel-icon/search', to: 'querylogger#search', via: [:get, :post ]
   match 'channel-icon/submit', to: 'querylogger#submit', via: [:post ]

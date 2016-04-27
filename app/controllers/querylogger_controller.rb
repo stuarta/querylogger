@@ -16,6 +16,11 @@ class QueryloggerController < ApplicationController
     uri = URI('http://services.mythtv.org/channel-icon/search')
     forward_request(uri, params)
   end
+  def findmissing
+    Rails.logger.debug params.inspect
+    uri = URI('http://services.mythtv.org/channel-icon/findmissing')
+    forward_request(uri, params)
+  end
   def forward_request(uri, params)
     req = Net::HTTP::Post.new(uri)
     req.set_form_data(params)
