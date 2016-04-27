@@ -8,17 +8,17 @@ class QueryloggerController < ApplicationController
   end
   def lookup
     Rails.logger.debug params.inspect
-    uri = URI('http://services.mythtv.org/channel-icon/lookup')
+    uri = URI('http://alcor.mythtv.org/channel-icon/lookup')
     forward_request(uri, params)
   end
   def search
     Rails.logger.debug params.inspect
-    uri = URI('http://services.mythtv.org/channel-icon/search')
+    uri = URI('http://alcor.mythtv.org/channel-icon/search')
     forward_request(uri, params)
   end
   def findmissing
     Rails.logger.debug params.inspect
-    uri = URI('http://services.mythtv.org/channel-icon/findmissing')
+    uri = URI('http://alcor.mythtv.org/channel-icon/findmissing')
     forward_request(uri, params)
   end
   def forward_request(uri, params)
@@ -28,6 +28,7 @@ class QueryloggerController < ApplicationController
       puts "JSON wanted"
     end
     req['Accept'] = request.headers['Accept']
+    req['Host'] = "services.mythtv.org"
     @res = Net::HTTP.start(uri.hostname, uri.port) do |http|
       http.request(req)
     end
