@@ -3,7 +3,7 @@ class QueryloggerController < ApplicationController
   skip_before_action :verify_authenticity_token
   def submit
     Rails.logger.debug params.inspect
-    uri = URI('http://services.mythtv.org/channel-icon/submit')
+    uri = URI('http://alcor.mythtv.org/channel-icon/submit')
     forward_request(uri, params)
   end
   def lookup
