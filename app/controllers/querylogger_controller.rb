@@ -37,9 +37,9 @@ class QueryloggerController < ApplicationController
     @res = Net::HTTP.start(uri.hostname, uri.port) do |http|
       http.request(req)
     end
-    puts "=== Response Body Start ==="
-    puts "#{@res.body}"
-    puts "===  Response Body End  ==="
+    Rails.logger.debug "=== Response Body Start ==="
+    Rails.logger.debug "#{@res.body}"
+    Rails.logger.debug "===  Response Body End  ==="
     respond_to do |format|
       format.text { render "response" }
       format.json { render json: @res.body }
