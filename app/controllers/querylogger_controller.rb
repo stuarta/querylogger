@@ -29,6 +29,11 @@ class QueryloggerController < ApplicationController
     end
     req['Accept'] = request.headers['Accept']
     req['Host'] = "services.mythtv.org"
+    req['User-Agent'] = request.headers['User-Agent']
+    req['X-Real-IP'] = request.headers['X-Real-IP']
+    req['X-Forwarded-For'] = request.headers['X-Forwarded-For']
+    req['X-Forwarded-Host'] = request.headers['X-Forwarded-Host']
+    req['X-Forwarded-Server'] = request.headers['X-Forwarded-Server']
     @res = Net::HTTP.start(uri.hostname, uri.port) do |http|
       http.request(req)
     end
@@ -38,6 +43,7 @@ class QueryloggerController < ApplicationController
     respond_to do |format|
       format.text { render "response" }
       format.json { render json: @res.body }
+      format.html { render text: @res.body }
     end
   end
 end
