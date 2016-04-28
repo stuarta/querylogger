@@ -29,7 +29,7 @@ class QueryloggerController < ApplicationController
     end
     req['Accept'] = request.headers['Accept']
     req['Host'] = "services.mythtv.org"
-    req['User-Agent'] = request.headers['User-Agent']
+    req['User-Agent'] = request.headers['User-Agent'] + '; ' + request.headers['X-Real-IP']
     req['X-Real-IP'] = request.headers['X-Real-IP']
     req['X-Forwarded-For'] = request.headers['X-Forwarded-For']
     req['X-Forwarded-Host'] = request.headers['X-Forwarded-Host']
