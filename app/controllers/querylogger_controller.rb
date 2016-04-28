@@ -2,31 +2,26 @@ require 'net/http'
 class QueryloggerController < ApplicationController
   skip_before_action :verify_authenticity_token
   def submit
-    Rails.logger.debug params.inspect
-    uri = URI('http://alcor.mythtv.org/channel-icon/submit')
-    forward_request(uri, params)
+    forward_request("submit", params)
   end
   def lookup
-    Rails.logger.debug params.inspect
-    uri = URI('http://alcor.mythtv.org/channel-icon/lookup')
-    forward_request(uri, params)
+    forward_request("lookup", params)
   end
   def search
-    Rails.logger.debug params.inspect
-    uri = URI('http://alcor.mythtv.org/channel-icon/search')
-    forward_request(uri, params)
+    forward_request("search", params)
   end
   def findmissing
-    Rails.logger.debug params.inspect
-    uri = URI('http://alcor.mythtv.org/channel-icon/findmissing')
-    forward_request(uri, params)
+    forward_request("findmissing", params)
   end
   def forward_request(uri, params)
+    Rails.logger.debug params.inspect
+    remoteip = (!request.headers['X-Real-IP'].nil?) ? request.headers['X-Real-IP'] : request.env['REMOTE_ADDR']
+    uri = URI('http://alcor.mythtv.org/channel-icon/' + uri)
     req = Net::HTTP::Post.new(uri)
     req.set_form_data(params)
     req['Accept'] = request.headers['Accept']
     req['Host'] = "services.mythtv.org"
-    req['User-Agent'] = request.headers['User-Agent'] + '; ' + request.headers['X-Real-IP']
+    req['User-Agent'] = request.headers['User-Agent'] + '; ' + remoteip
     req['X-Real-IP'] = request.headers['X-Real-IP']
     req['X-Forwarded-For'] = request.headers['X-Forwarded-For']
     req['X-Forwarded-Host'] = request.headers['X-Forwarded-Host']
