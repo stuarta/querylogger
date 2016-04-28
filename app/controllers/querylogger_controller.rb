@@ -24,9 +24,6 @@ class QueryloggerController < ApplicationController
   def forward_request(uri, params)
     req = Net::HTTP::Post.new(uri)
     req.set_form_data(params)
-    if (request.headers['Accept'] == "application/json")
-      puts "JSON wanted"
-    end
     req['Accept'] = request.headers['Accept']
     req['Host'] = "services.mythtv.org"
     req['User-Agent'] = request.headers['User-Agent'] + '; ' + request.headers['X-Real-IP']
