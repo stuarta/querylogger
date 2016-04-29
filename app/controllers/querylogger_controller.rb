@@ -32,10 +32,12 @@ class QueryloggerController < ApplicationController
     Rails.logger.debug "=== Response Body Start ==="
     Rails.logger.debug "#{@res.body}"
     Rails.logger.debug "===  Response Body End  ==="
+    if request.format == :html
+      request.format = :text
+    end
     respond_to do |format|
       format.text { render "response" }
       format.json { render json: @res.body }
-      format.html { render text: @res.body }
     end
   end
 end
