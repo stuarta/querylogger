@@ -14,7 +14,6 @@ class QueryloggerController < ApplicationController
     forward_request("findmissing", params)
   end
   def forward_request(uri, params)
-    Rails.logger.debug params.inspect
     remoteip = (!request.headers['X-Real-IP'].nil?) ? request.headers['X-Real-IP'] : request.env['REMOTE_ADDR']
     uri = URI('http://alcor.mythtv.org/channel-icon/' + uri)
     req = Net::HTTP::Post.new(uri)
