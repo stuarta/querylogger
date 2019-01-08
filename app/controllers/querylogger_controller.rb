@@ -28,6 +28,9 @@ class QueryloggerController < ApplicationController
     @res = Net::HTTP.start(uri.hostname, uri.port) do |http|
       http.request(req)
     end
+    Rails.logger.debug "=== HTTP Response Header Start ==="
+    Rails.logger.debug "#{@res.code} - #{@res.message}"
+    Rails.logger.debug "=== HTTP Response Header End ==="
     Rails.logger.debug "=== Response Body Start ==="
     Rails.logger.debug "#{@res.body}"
     Rails.logger.debug "===  Response Body End  ==="
