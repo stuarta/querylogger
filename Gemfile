@@ -16,6 +16,9 @@ gem 'sqlite3', '~>1.3.6'
 
 gem 'json', '>= 2.3.0'
 
+# https://github.com/advisories/GHSA-vr8q-g5c7-m54m
+gem "nokogiri", ">= 1.11.0.rc4"
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
